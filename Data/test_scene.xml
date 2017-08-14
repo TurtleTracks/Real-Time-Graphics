@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Test scene -->
+<scene>
+	<frame width = "800" height = "600" />
+	<camera znear = "0.1" zfar = "100" fov = "45">
+		<lookat pos = "0.0, 3.0, 4.0"
+				dir = "0.0, -2.5, -4.0"
+				up  = "0.0, 1.0, 0.0" />
+	</camera>
+	<light pos = "-1.0, 3.0, 0.0"
+		 	col = "0.6, 0.6, 0.6" />
+	<light pos = "0.0, 2.0, 3.0" 
+			col = "0.8, 0.8, 0.8" />
+	<model>
+		<transform>
+			<translate vec = "0.0, 0.0, 0.0" />
+		</transform>
+		<mesh type = "obj">
+			<filename value = "bunny.obj" />
+			<surface kd = "0.7, 0.7, 0.7"
+					ks = "0.2, 0.2, 0.2"
+					vc = "0"
+					smoothness = "50" />
+		</mesh>
+	</model>	
+	<model>
+		<transform>
+			<translate vec = "0.0, -1.5, 0.0" />
+		</transform>
+		<mesh type = "obj">
+			<filename value = "cube.obj" />
+			<surface kd = "0.7, 0.4, 0.4"
+					ks = "0.2, 0.2, 0.2"
+					vc = "0"
+					smoothness = "10" />
+		</mesh>
+	</model>	
+	<model>
+		<transform>
+			<translate vec = "2.0, -2.0, 0.0" />
+			<rotate angle = "45.0" vec = "0.0, 1.0, 0.0" />
+			<scale vec = "0.25, 0.25, 0.25" />
+		</transform>
+		<mesh type = "obj">
+			<filename value = "teapot.obj" />
+			<surface kd = "0.3, 0.253, 0.0"
+					ks = "0.2, 0.2, 0.2"
+					vc = "0"
+					smoothness = "100" />
+		</mesh>
+	</model>
+	<shader type = "radiosity">
+</scene>
