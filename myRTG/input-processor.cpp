@@ -52,8 +52,8 @@ void InputProcessor::handleKeyPress(Scene *scene, std::queue<MousePress> *mouseC
 		mouseClicks->pop();
 		if (GLFW_RELEASE == mouse.action)
 		{
-			scene->cameras[0].pitch(-mouse.x / 600);
-			scene->cameras[0].yaw(-mouse.y / 800);
+			scene->cameras[0].rotY(-mouse.x / 600);
+			scene->cameras[0].rotX(-mouse.y / 800);
 		}
 	}
 }
