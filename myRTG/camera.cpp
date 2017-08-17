@@ -2,17 +2,19 @@
 
 void Camera::pitch(float rad)
 {
-	dir = glm::rotateX(glm::vec4(dir, 0), rad);
+	//dir = glm::rotateX(glm::vec4(dir, 0), rad);
 }
 
 void Camera::roll(float rad)
 {
-	dir = glm::rotateZ(glm::vec4(dir, 0), rad);
+	//dir = glm::rotateZ(glm::vec4(dir, 0), rad);
+	dir = glm::rotate(dir, (float)rad, right());
 }
 
 void Camera::yaw(float rad)
 {
-	dir = glm::rotateY(glm::vec4(dir, 0), rad);
+	//dir = glm::rotateY(glm::vec4(dir, 0), rad);
+	dir = glm::rotate(dir, (float)rad, up);
 }
 
 glm::mat4 Camera::getProjection()
