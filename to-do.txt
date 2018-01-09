@@ -1,0 +1,24 @@
+Real-Time Graphics To-Do: 
+
+create scene-object interface with base functions: 
+    initialize
+    update
+    destroy
+
+create scene structure for quick traversal of scene objects:
+    possibly a list or heap
+
+force gpu rendering 
+
+Replace "radiosity" shader with a shader that actually works 
+
+Determine system for inserting/adding/swapping(?) shaders 
+
+Launcher window dimensions and camera/shader rendering dimensions should be matched 
+
+interesting note: 
+Shaders are associated with vertex/triangle buffers, 
+but render to a screen sized texture. 
+How would I swap shaders? 
+
+the texture is part of the framebuffer and is independent of the currently set shader

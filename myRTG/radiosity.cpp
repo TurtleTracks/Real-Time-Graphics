@@ -51,33 +51,34 @@ void Radiosity::render()
 		GL_TEXTURE_2D, getScreenTex(0), 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//	shadow map pass and render pass
-	//	shader must return at least 2 textures from getScrenTex()
-	//	because the loop alternates between textures for writing and reading.
-	for (int pass = 1; pass < sceneLights->size(); pass++)
-	{
-		glViewport(0, 0, 512, 512);
-		glBindFramebuffer(GL_FRAMEBUFFER,getDepthFBO());
-		glClear(GL_DEPTH_BUFFER_BIT);
-		mapShadow((*sceneLights)[pass - 1], *sceneModels);
+	////	shadow map pass and render pass
+	////	shader must return at least 2 textures from getScrenTex()
+	////	because the loop alternates between textures for writing and reading.
+	//for (int pass = 10; pass < sceneLights->size(); pass++)
+	//{
+	//	glViewport(0, 0, 800, 800);
+	//	glBindFramebuffer(GL_FRAMEBUFFER,getDepthFBO());
+	//	glClear(GL_DEPTH_BUFFER_BIT);
+	//	mapShadow((*sceneLights)[pass - 1], *sceneModels);
 
-		glViewport(0, 0, 800, 600);
-		glBindFramebuffer(GL_FRAMEBUFFER, getScreenFBO());
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-			GL_TEXTURE_2D, getScreenTex(glm::mod(pass, 2)), 0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			std::cout << "screenFBO incomplete" << std::endl;
-		renderBlinnPhong(pass);
-	}
+	//	glViewport(0, 0, 1600, 1200);
+	//	glBindFramebuffer(GL_FRAMEBUFFER, getScreenFBO());
+	//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+	//		GL_TEXTURE_2D, getScreenTex(glm::mod(pass, 2)), 0);
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	//		std::cout << "screenFBO incomplete" << std::endl;
+	//	renderBlinnPhong(pass);
+	//}
+
 	//	final pass, renderShadow() now bound to default Framebuffer
 	//	instead of custom FBO. Displays image to screen. 
-	glViewport(0, 0, 512, 512);
+	glViewport(0, 0, 800, 800);
 	glBindFramebuffer(GL_FRAMEBUFFER, getDepthFBO());
 	glClear(GL_DEPTH_BUFFER_BIT);
 	mapShadow(sceneLights->back(), *sceneModels);
 
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, 1600, 1200);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderBlinnPhong(sceneLights->size());
@@ -174,7 +175,7 @@ void Radiosity::generateFBO(void)
 	for (int i = 0; i < 3; i++)
 	{
 		glBindTexture(GL_TEXTURE_2D, screenTex[i]);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGB,
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1600, 1200, 0, GL_RGB,
 			GL_UNSIGNED_BYTE, nullptr);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -184,7 +185,7 @@ void Radiosity::generateFBO(void)
 
 	glGenTextures(1, &depthTex);
 	glBindTexture(GL_TEXTURE_2D, depthTex);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 800, 600, 0,
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 1600, 1200, 0,
 		GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

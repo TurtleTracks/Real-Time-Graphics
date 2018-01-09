@@ -8,6 +8,8 @@ class Launcher
 {
 	double xpos;
 	double ypos;
+	int width;
+	int height;
 	bool mouseDragged = false;
 	std::queue<KeyPress> keys;
 	std::queue<MousePress> mouse;
@@ -18,7 +20,7 @@ class Launcher
 	void updateSystem(GLFWwindow *window);
 	GLFWwindow *window;
 public:
-	Launcher();
+	Launcher(int width, int height);
 	~Launcher();
 	static void error_callback(int error, const char * description);
 	static void key_callback(GLFWwindow * window, int key, int scancode, int action, int mods);

@@ -36,18 +36,24 @@ void Scene::addShader(Shader *s)
 void Scene::addParticleSystem(ParticleSystem *system)
 {
 	ps = system;
+	ps->createTower();
 }
 
 /**
-* System update call.
+* Update call should iterate through every object in the scene and call it's update function. 
+* every object in the scene should have an update call
 */
 void Scene::updateSystem(double time)
 {
 	this->timeDelta = time - this->time;
 	this->time = time;
+	if(ps != nullptr)
+		ps->update();
 	//bounceLights();
 }
 
+/* Seperate file parsing from scene construction. Objects should already be "scene" ready
+by the time add<Object>() call is made*/
 using pugi::xml_node;
 Scene Scene::loadXML(pugi::xml_node  root)
 {

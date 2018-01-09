@@ -4,8 +4,10 @@
 #include <iostream>
 
 
-Launcher::Launcher()
+Launcher::Launcher(int width, int height)
 {
+	this->width = width;
+	this->height = height;
 	glfwSetWindowUserPointer(window, this);
 }
 
@@ -140,7 +142,7 @@ int Launcher::initialize_window(void)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	window = glfwCreateWindow(800, 600, "myRTG", nullptr, nullptr);
+	window = glfwCreateWindow(width, height, "myRTG", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -161,7 +163,7 @@ int Launcher::initialize_window(void)
 	printf("Renderer: %s\n", renderer);
 	printf("OpenGL version supported %s\n", version);
 
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, width, height);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	if (1 != Launcher::init_resources()) exit(EXIT_FAILURE);
@@ -182,7 +184,7 @@ int Launcher::initialize_window(void)
 
 int main(void)
 {
-	Launcher myPBR = Launcher();
+	Launcher myPBR = Launcher(1600, 1200);
 	myPBR.initialize_window();
 	return 0;
 }
